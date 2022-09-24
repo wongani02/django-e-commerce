@@ -1,0 +1,40 @@
+{% load static %}
+<div class="total-shipping">
+    <h5>Total shipping</h5>
+    <ul>
+        
+        {% for item in deliveryoptions %}
+        <li>
+            <input  type="radio" name="deliveryOption" id="{{item.id}}"
+            value="{{item.id}}">
+             {{item.delivery_name}} 
+             <span id="">
+                ${{item.delivery_price}}
+            </span>
+        </li>
+        {% endfor %}
+        
+    </ul>
+    
+</div> 
+
+<script>
+    $('input[type=radio][name=deliveryOption]').on('change', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: '{% url "checkout:basket_update_delivery" %}',
+      data: {
+        deliveryoption: $(this).val(),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        document.getElementById("total").innerHTML = json.total;
+        document.getElementById("delivery_price").innerHTML = json.delivery_price;
+      },
+      error: function (xhr, errmsg, err) {},
+    });
+    
+  });
+</script>

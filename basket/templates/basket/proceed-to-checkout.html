@@ -1,0 +1,33 @@
+{% load basket_template_tags %}
+<div class="col-lg-4 col-md-12">
+    <div class="grand-totall">
+        <div class="title-wrap">
+            <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+        </div><br>
+        <h5>Total products <span id="subtotal">${{basket.get_subtotal_price}}</span></h5>
+        {% delivery_tag %}
+        <h5>Selected delivery cost <span id="delivery_price">${{basket.get_delivery_price}}</span></h5>
+        <h4 class="grand-totall-title">Grand Total <span id="total">${{basket.get_total_price}}</span></h4>
+        <a href="{% url 'checkout:delivery_address' %}">Proceed to Checkout</a>
+    </div>
+</div>
+<script>
+    $('input[type=radio][name=deliveryOption]').on('change', function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: "POST",
+      url: '{% url "checkout:basket_update_delivery" %}',
+      data: {
+        deliveryoption: $(this).val(),
+        csrfmiddlewaretoken: "{{csrf_token}}",
+        action: "post",
+      },
+      success: function (json) {
+        document.getElementById("total").innerHTML = json.total;
+        document.getElementById("delivery_price").innerHTML = json.delivery_price;
+      },
+      error: function (xhr, errmsg, err) {},
+    });
+    
+  });
+</script>

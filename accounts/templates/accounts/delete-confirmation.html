@@ -1,0 +1,47 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br><br>
+        <div class="breadcrumb-area bg-gray">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <ul>
+                        <li>
+                            <h3>Account deleted</h3>
+                        </li>
+                        <!-- <li class="active">Account Deleted</li> -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- order tracking start -->
+        <div class="order-tracking-area pt-110 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-6 col-lg-8 col-md-10 ml-auto mr-auto">
+                        <div class="order-tracking-content">
+                            <p>Your account has been successfully deleted. Thank you for using our service.</p>
+                            <div class="order-track-btn">
+                                <!-- <a href="{% url 'store:home' %}">Home</a> -->
+                            </div>
+                            <!-- <div class="order-tracking-form">
+                                <form action="#">
+                                    <div class="sin-order-tracking">
+                                        <label>Order ID</label>
+                                        <input type="text" placeholder="Found in your order confirmation email.">
+                                    </div>
+                                    <div class="sin-order-tracking">
+                                        <label>Billing Email</label>
+                                        <input type="email" placeholder="Email you used during checkout">
+                                    </div>
+                                    <div class="order-track-btn">
+                                        <a href="#">Track Now</a>
+                                    </div>
+                                </form>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}

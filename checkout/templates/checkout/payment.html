@@ -1,0 +1,289 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+{% load basket_template_tags %}
+<br><br><br><br><br><br>
+        <div class="breadcrumb-area bg-gray">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <ul>
+                        <li>
+                            <a href="{% url 'store:home' %}">Home</a>
+                        </li>
+                        <li class="active">Checkout </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="checkout-main-area pt-120 pb-120">
+            <div class="container">
+                <!-- <div class="customer-zone mb-20">
+                    <p class="cart-page-title">Returning customer? <a class="checkout-click1" href="#">Click here to login</a></p>
+                    <div class="checkout-login-info">
+                        <p>If you have shopped with us before, please enter your details in the boxes below. If you are a new customer, please proceed to the Billing & Shipping section.</p>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="sin-checkout-login">
+                                        <label>Username or email address <span>*</span></label>
+                                        <input type="text" name="user-name">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="sin-checkout-login">
+                                        <label>Passwords <span>*</span></label>
+                                        <input type="password" name="user-password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-remember-wrap">
+                                <button class="button" type="submit">Login</button>
+                                <div class="checkout-login-toggle-btn">
+                                    <input type="checkbox">
+                                    <label>Remember me</label>
+                                </div>
+                            </div>
+                            <div class="lost-password">
+                                <a href="#">Lost your password?</a>
+                            </div>
+                        </form>
+                        <div class="checkout-login-social">
+                            <span>Login with:</span>
+                            <ul>
+                                <li><a href="#">Facebook</a></li>
+                                <li><a href="#">Twitter</a></li>
+                                <li><a href="#">Google</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+                <div class="customer-zone mb-20">
+                    <p class="cart-page-title">Have a coupon? <a class="checkout-click3" href="#">Click here to enter your code</a></p>
+                    <div class="checkout-login-info3">
+                        <form action="#">
+                            <input type="text" placeholder="Coupon code">
+                            <input type="submit" value="Apply Coupon">
+                        </form>
+                    </div>
+                </div>
+                <div class="checkout-wrap pt-30">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            
+                            <div class="myaccount-content">
+                                
+                                
+                                <h3>Your Selected Billing Address<small></small></h3>
+                                {% for item in addresses %}
+                                <div data-index="{{item.id}}">
+                                    
+                                    {% if item.default %}
+                                    <h3>Selected</h3>
+                                    
+                                    <address>
+                                        <p><strong>{{item.full_name}}</strong></p>
+                                        <p>{{item.address_line}}<br>
+                                    {{item.address_line2}}</p>
+                                        <p>{{ item.town_city}}</p>
+                                        <p>{{ item.postcode}}</p>
+                                        <p>Mobile:{{item.phone}}</p>
+                                    </address>
+                                    {% endif %}
+                                    
+                                    
+                                    
+                                </div>
+                                {% endfor %}
+                                
+                            </div> 
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="your-order-area">
+                                <h3>Your order</h3>
+                                <div class="your-order-wrap gray-bg-4">
+                                    <div class="your-order-info-wrap">
+                                        <div class="your-order-info">
+                                            <ul>
+                                                <li>Product <span>Total</span></li>
+                                            </ul>
+                                        </div>
+                                        <div class="your-order-middle">
+                                            <ul>
+                                                {% for item in basket %}
+                                                    {% with product=item.product %}
+                                                        <li>{{ product.title }} X {{item.qty}} <span>${{ product.regular_price }} </span></li>
+                                                    {% endwith %}
+                                                {% endfor %}
+                                                <!-- <li>Product Name X 1 <span>$329 </span></li> -->
+                                            </ul>
+                                        </div>
+                                        <div class="your-order-info order-subtotal">
+                                            <ul>
+                                                <li>Subtotal <span>${{basket.get_subtotal_price}} </span></li>
+                                                <li>Delivery fee <span>${{basket.get_delivery_price}} </span></li>
+                                            </ul>
+                                        </div>
+                                        <!-- <div class="your-order-info order-shipping">
+                                            <ul>
+                                                <li>Shipping <p>Enter your full address </p>
+                                                </li>
+                                            </ul>
+                                        </div> -->
+                                        <div class="your-order-info order-total">
+                                            <ul>
+                                                <li>Total <span>${{basket.get_total_price}} </span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="payment-method">
+                                        <!-- <div class="pay-top sin-payment">
+                                            <input id="payment_method_1" class="input-radio" type="radio" value="cheque" checked="checked" name="payment_method">
+                                            <label for="payment_method_1"> Direct Bank Transfer </label>
+                                            <div class="payment-box payment_method_bacs">
+                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                            </div>
+                                        </div>
+                                        <div class="pay-top sin-payment">
+                                            <input id="payment-method-2" class="input-radio" type="radio" value="cheque" name="payment_method">
+                                            <label for="payment-method-2">Check payments</label>
+                                            <div class="payment-box payment_method_bacs">
+                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                            </div>
+                                        </div>
+                                        <div class="pay-top sin-payment">
+                                            <input id="payment-method-3" class="input-radio" type="radio" value="cheque" name="payment_method">
+                                            <label for="payment-method-3">Cash on delivery </label>
+                                            <div class="payment-box payment_method_bacs">
+                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                            </div>
+                                        </div> -->
+                                        <div class="pay-top sin-payment sin-payment-3">
+                                            <input id="payment-method-4" checked="checked" class="input-radio" type="radio" value="cheque" name="payment_method">
+                                            <label for="payment-method-4">PayPal <img alt="" src="assets/images/icon-img/payment.png"><a href="#">What is PayPal?</a></label>
+                                            <div class="payment-box payment_method_bacs">
+                                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script src="https://www.paypal.com/sdk/js?client-id=AfDx3yQgVBzG5LfDvijqX53CGeGf2cdxY8tCsf9xS-vgkcT3yJUPJ_e3uKbnfMHUr6yH-SgnXZ2N4rEi&currency=USD"></script>
+                                <div class="Place-order">
+                                    <div id="paypal-button-container"></div>
+                                    
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            const csrftoken = getCookie('csrftoken');
+
+            function initPayPalButton() {
+                paypal.Buttons({
+                style: {
+                    shape: 'rect',
+                    color: 'gold',
+                    layout: 'vertical',
+                    label: 'paypal',
+
+                },
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                    purchase_units: [{
+                        "amount": {
+                        "currency_code": "USD",
+                        "value": '{{basket.get_total_price}}'
+                        }
+                    }]
+                    });
+                },
+                onApprove: function (data) {
+                    var url = "{% url 'checkout:payment_complete' %}"
+                    return fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify({
+                        orderID: data.orderID
+                    })
+                    }).then(function () {
+                        location.href = "{% url 'checkout:payment_successful' %}";
+                    })
+                },
+                }).render('#paypal-button-container');
+            }
+            initPayPalButton();
+            // paypal.Buttons({
+            //   // Sets up the transaction when a payment button is clicked
+            //   createOrder: (data, actions) => {
+            //     return actions.order.create({
+            //       purchase_units: [{
+            //         amount: {
+            //           value: '77.44' // Can also reference a variable or function
+            //         }
+            //       }]
+            //     });
+            //   },
+            //   // Finalize the transaction after payer approval
+            //   onApprove: (data, actions) => {
+            //     return actions.order.capture().then(function(orderData) {
+            //       // Successful capture! For dev/demo purposes:
+            //       console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            //       const transaction = orderData.purchase_units[0].payments.captures[0];
+            //       alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+            //       // When ready to go live, remove the alert and show a success message within this page. For example:
+            //       // const element = document.getElementById('paypal-button-container');
+            //       // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+            //       // Or go to another URL:  actions.redirect('thank_you.html');
+            //     });
+            //   }
+            // }).render('#paypal-button-container');
+          
+          </script>
+        <!-- <div class="subscribe-area bg-gray pt-115 pb-115">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="section-title">
+                            <h2>keep connected</h2>
+                            <p>Get updates by subscribe our weekly newsletter</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div id="mc_embed_signup" class="subscribe-form">
+                            <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
+                                <div id="mc_embed_signup_scroll" class="mc-form">
+                                    <input class="email" type="email" required="" placeholder="Enter your email address" name="EMAIL" value="">
+                                    <div class="mc-news" aria-hidden="true">
+                                        <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
+                                    </div>
+                                    <div class="clear">
+                                        <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        {% endblock %}

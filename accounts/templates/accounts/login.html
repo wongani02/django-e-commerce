@@ -1,0 +1,132 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% block content %}
+<br><br><br><br><br><br>
+        <div class="breadcrumb-area bg-gray">
+            <div class="container">
+                <div class="breadcrumb-content text-center">
+                    <ul>
+                        <li>
+                            <a href="{% url 'store:home'%}">Home</a>
+                        </li>
+                        <li class="active">login  </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="login-register-area pt-115 pb-120">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                        <div class="login-register-wrapper">
+                            <div class="login-register-tab-list nav">
+                                <!-- <a class="active" data-toggle="tab" href="#lg1">
+                                    <h4> login </h4>
+                                </a>
+                                <a data-toggle="tab" href="#lg2">
+                                    <h4> register </h4>
+                                </a> -->
+                                <a href="{% url 'accounts:accounts-login' %}">
+                                    <h4 class="active" >Login</h4>
+                                </a>
+                            </div>
+                            
+                            <div class="tab-content">
+                                <div id="lg1" class="tab-pane active">
+                                    <div class="login-form-container">
+                                        <div class="login-register-form">
+                                            <form action="{% url 'accounts:accounts-login' %}" method="post">
+                                                {% csrf_token %}
+                                                {% if form.errors %}
+                                                <div class="alert alert-primary" role="alert">
+                                                    Error: Username or Password not correct!
+                                                </div>
+                                                {% endif %}
+                                                <!-- <input type="text" name="user-name" placeholder="Username">
+                                                <input type="password" name="user-password" placeholder="Password"> -->
+                                                <label class="form-label">{{ form.username.label}}</label>
+                                                {{ form.username }}
+
+                                                <label class="form-label">{{ form.password.label}}</label>
+                                                {{ form.password}}
+                                                <div class="button-box">
+                                                    <div class="login-toggle-btn">
+                                                        <!-- <input type="checkbox"> -->
+                                                        <label><a href="{% url 'accounts:register' %}">Don't have an account?</a></label>
+                                                        
+                                                        <a href="#">Forgot Password?</a>
+                                                    </div>
+                                                    <button type="submit">Login</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="lg2" class="tab-pane">
+                                    <div class="login-form-container">
+                                        <div class="login-register-form">
+                                            <form action="." method="post">
+                                                {% csrf_token %}
+
+                                                {% if form.errors %}
+                                                <p>Please correct the following errors:</p>
+                                                {% for field in form %}
+                                                {% if field.errors %}
+                                                <div class="alert alert-primary" role="alert">
+                                                    {{ field.label }}: {{ field.errors|striptags }}
+                                                </div>
+                                                {% endif %}
+                                                {% endfor %}
+                                                {% endif %}
+                                                <!-- <input type="text" name="user-name" placeholder="Username"> -->
+                                                <!-- <input type="password" name="user-password" placeholder="Password"> -->
+                                                <!-- <input name="user-email" placeholder="Email" type="email"> -->
+                                                <!-- <label for="Email">{{form.email.label}}</label>
+                                                {{form.email}}
+                                                <label for="Username">{{form.user_name.label}}</label>
+                                                {{form.user_name}}
+                                                <label for="password">{{form.password.label}}</label>
+                                                {{form.password}}
+                                                <label for="password2">{{form.password2.label}}</label>
+                                                {{form.password2}}
+                                                <div class="button-box">
+                                                    <button type="submit">Register</button>
+                                                </div>
+                                            </form> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="subscribe-area bg-gray pt-115 pb-115">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-5">
+                        <div class="section-title">
+                            <h2>keep connected</h2>
+                            <p>Get updates by subscribe our weekly newsletter</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-md-7">
+                        <div id="mc_embed_signup" class="subscribe-form">
+                            <form id="mc-embedded-subscribe-form" class="validate subscribe-form-style" novalidate="" target="_blank" name="mc-embedded-subscribe-form" method="post" action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef">
+                                <div id="mc_embed_signup_scroll" class="mc-form">
+                                    <input class="email" type="email" required="" placeholder="Enter your email address" name="EMAIL" value="">
+                                    <div class="mc-news" aria-hidden="true">
+                                        <input type="text" value="" tabindex="-1" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef">
+                                    </div>
+                                    <div class="clear">
+                                        <input id="mc-embedded-subscribe" class="button" type="submit" name="subscribe" value="Subscribe">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endblock %}
